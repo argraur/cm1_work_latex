@@ -8,81 +8,277 @@
 % Содержание
 \include{ToC}
 
-
 \section{Цель работы}
-
-
-\section{Программа работы}
-
-
-\section{Теоретическая информация}
-
+Ознакомление с интерполяцией/аппроксимацией функций, исследование погрешностей и работа с программным обеспечением MATLAB.
 
 \section{Ход выполнения работы}
 
-\subsection{Список}
-
-\begin{itemize}
-\item первый элемент списка
-\item второй элемент списка
-\end{itemize}
+\subsection{Задача интерполяции Вандермонда}
 
 
-\subsection{Картинка}
+\subsubsection{Задание}
+Для \(y = sin(x)\) построить интерполяционные полиномы по точкам. Оценить и исследовать погрешность.
+\begin{enumerate}
+    \item Расширение границ интерполяции \([a, b]\): \([-\frac{\pi}{2};\frac{\pi}{2}]\);\([-\pi;\frac{\pi}{2}]\);\([-3\pi;3\pi]\)
+    \item Увеличение количества точек (от 15 до 30)
+    \item Добавление погрешности к заданным узлам интерполяции с помощью функции \(rand()\). (Уровни: 0.1, 0.01, 0.0001)
+\end{enumerate}
 
+
+\subsubsection{Границы \([-\frac{\pi}{2};\frac{\pi}{2}]\)}
+Исследуем погрешность интерполяции на отрезке \([-\frac{\pi}{2};\frac{\pi}{2}]\).
+\lstinputlisting[language=Matlab]{wandermond/first.m}
 \begin{figure}[H]
-	\begin{center}
-		\includegraphics[scale=0.7]{sample}
-		\caption{название картинки} 
-		\label{pic:pic_name} % название для ссылок внутри кода
-	\end{center}
+\centering
+    \foreach \n in {1,...,15}{
+        \minipage{0.32\textwidth}
+            \includegraphics[width=\linewidth]{wandermond/first/plot\n.png}
+            \caption*{Погрешность для точки №\n}
+        \endminipage\hfill
+    }
+\end{figure}
+\begin{figure}
+\centering
+    \includegraphics[scale=0.5]{wandermond/first/pogr.png}
+    \caption{Общая погрешность}
 \end{figure}
 
 
-\subsection{Листинг}
+\subsubsection{Границы \([-\pi;\frac{\pi}{2}]\)}
+Исследуем погрешность интерполяции на отрезке  \([-\pi;\frac{\pi}{2}]\).
+\lstinputlisting[language=Matlab]{wandermond/second.m}
+\begin{figure}[H]
+    \centering
+        \foreach \n in {1,...,15}{
+            \minipage{0.32\textwidth}
+                \includegraphics[width=\linewidth]{wandermond/second/plot\n.png}
+                \caption*{Погрешность для точки №\n}
+            \endminipage\hfill
+        }
+\end{figure}
+\begin{figure}
+\centering
+    \includegraphics[scale=0.5]{wandermond/second/pogr.png}
+    \caption{Общая погрешность}
+\end{figure}
 
-\lstinputlisting[
-	label=code:hello,
-	caption={hell\_o.c},% для печати символ '_' требует выходной символ '\'
-]{hell_o.c}
-\parindent=1cm % командна \lstinputlisting сбивает параментры отступа
-Текст без отступа (следует за вставкой)
 
-Новый параграф
+\subsubsection{Границы \([-3\pi;3\pi]\)}
+Исследуем погрешность интерполяции на отрезке  \([-3\pi;3\pi]\).
+\lstinputlisting[language=Matlab]{wandermond/third.m}
+\begin{figure}[H]
+    \centering
+        \foreach \n in {1,...,15}{
+            \minipage{0.32\textwidth}
+                \includegraphics[width=\linewidth]{wandermond/third/plot\n.png}
+                \caption*{Погрешность для точки №\n}
+            \endminipage\hfill
+        }
+\end{figure}
+\begin{figure}
+\centering
+    \includegraphics[scale=0.5]{wandermond/third/pogr.png}
+    \caption{Общая погрешность}
+\end{figure}
 
-\noindent Новый параграф с принудительно выключенным отступом
+\textbf{Вывод по пунктам 2.1.2 - 2.1.4}: На полученных графиках для каждого интервала видно, что с каждой новой точкой интерполяции общая погрешность постепенно уменьшается.
+
+\subsubsection{Увеличение количества точек до 30}
+Исследуем погрешность интерполяции на отрезке  \([-3\pi;3\pi]\) с количеством точек \(m = 30\).
+\lstinputlisting[language=Matlab]{wandermond/third_30.m}
+\begin{figure}[H]
+    \centering
+        \foreach \n in {1,...,15}{
+            \minipage{0.32\textwidth}
+                \includegraphics[width=\linewidth]{wandermond/third_30/plot\n.png}
+                \caption*{Погрешность для точки №\n}
+            \endminipage\hfill
+        }
+\end{figure}
+\begin{figure}[H]
+    \centering
+        \foreach \n in {16,...,30}{
+            \minipage{0.32\textwidth}
+                \includegraphics[width=\linewidth]{wandermond/third_30/plot\n.png}
+                \caption*{Погрешность для точки №\n}
+            \endminipage\hfill
+        }
+\end{figure}
+\begin{figure}
+\centering
+    \includegraphics[scale=0.5]{wandermond/third_30/pogr.png}
+    \caption{Общая погрешность}
+\end{figure}
+
+\textbf{Вывод:} По полученным графикам можно заметить, что после 15-й точки интерполяции погрешность начинает, наоборот возрастать.
+
+\subsubsection{Добавление погрешности. Уровень 0.1}
+Исследуем погрешность интерполяции на отрезке  \([-3\pi;3\pi]\) с количеством точек \(m = 30\) и с добавлением погрешности уровня 0.1
+\lstinputlisting[language=Matlab]{wandermond/third_01.m}
+\begin{figure}[H]
+    \centering
+        \foreach \n in {1,...,15}{
+            \minipage{0.32\textwidth}
+                \includegraphics[width=\linewidth]{wandermond/third_01/plot\n.png}
+                \caption*{Погрешность для точки №\n}
+            \endminipage\hfill
+        }
+\end{figure}
+\begin{figure}[H]
+    \centering
+        \foreach \n in {16,...,30}{
+            \minipage{0.32\textwidth}
+                \includegraphics[width=\linewidth]{wandermond/third_01/plot\n.png}
+                \caption*{Погрешность для точки №\n}
+            \endminipage\hfill
+        }
+\end{figure}
+\begin{figure}
+\centering
+    \includegraphics[scale=0.5]{wandermond/third_01/pogr.png}
+    \caption{Общая погрешность}
+\end{figure}
 
 
-\subsection{Частичный листинг}
-% настрока частичного ввода (требуется один раз)
-\makeatletter
-\def\lst@PlaceNumber{\llap{\normalfont
-                \lst@numberstyle{\the\lst@lineno}\kern\lst@numbersep}}
-\makeatother
+\subsubsection{Добавление погрешности. Уровень 0.01}
+Исследуем погрешность интерполяции на отрезке  \([-3\pi;3\pi]\) с количеством точек \(m = 30\) и с добавлением погрешности уровня 0.01
+\lstinputlisting[language=Matlab]{wandermond/third_001.m}
+\begin{figure}[H]
+    \centering
+        \foreach \n in {1,...,15}{
+            \minipage{0.32\textwidth}
+                \includegraphics[width=\linewidth]{wandermond/third_001/plot\n.png}
+                \caption*{Погрешность для точки №\n}
+            \endminipage\hfill
+        }
+\end{figure}
+\begin{figure}[H]
+    \centering
+        \foreach \n in {16,...,30}{
+            \minipage{0.32\textwidth}
+                \includegraphics[width=\linewidth]{wandermond/third_001/plot\n.png}
+                \caption*{Погрешность для точки №\n}
+            \endminipage\hfill
+        }
+\end{figure}
+\begin{figure}
+\centering
+    \includegraphics[scale=0.5]{wandermond/third_001/pogr.png}
+    \caption{Общая погрешность}
+\end{figure}
 
-\lstinputlisting[
-	label=code:hello_mod,
-	linerange={4-5},
-	caption={фрагмент hell\_o.c},
-]{hell_o.c}
-\parindent=1cm
+\subsubsection{Добавление погрешности. Уровень 0.0001}
+Исследуем погрешность интерполяции на отрезке  \([-3\pi;3\pi]\) с количеством точек \(m = 30\) и с добавлением погрешности уровня 0.0001
+\lstinputlisting[language=Matlab]{wandermond/third_00001.m}
+\begin{figure}[H]
+    \centering
+        \foreach \n in {1,...,15}{
+            \minipage{0.32\textwidth}
+                \includegraphics[width=\linewidth]{wandermond/third_00001/plot\n.png}
+                \caption*{Погрешность для точки №\n}
+            \endminipage\hfill
+        }
+\end{figure}
+\begin{figure}[H]
+    \centering
+        \foreach \n in {16,...,30}{
+            \minipage{0.32\textwidth}
+                \includegraphics[width=\linewidth]{wandermond/third_00001/plot\n.png}
+                \caption*{Погрешность для точки №\n}
+            \endminipage\hfill
+        }
+\end{figure}
+\begin{figure}
+\centering
+    \includegraphics[scale=0.5]{wandermond/third_00001/pogr.png}
+    \caption{Общая погрешность}
+\end{figure}
 
-\subsection{Таблица}
+\textbf{Вывод по пунктам 2.1.6-2.1.8:} По полученным графикам, видно, что добавление погрешности \(rand()\) придаёт хаотичность графикам погрешностей.
 
-\begin{table}[H]
-	\caption{ Название таблицы}
-	\begin{center}
-		\begin{tabular}{|l|l|}
-			\hline
-			top left & top right\\ \hline
-			bot left & bot right\\ \hline
-		\end{tabular}
-		\label{tabular:tab_examp}
-	\end{center}
-\end{table}
 
-\section{Выводы}
-\LaTeX\ удобен для создания отчётов, так как сам следит за нумерацией таблиц, рисунков, листингов и отсылок к ним (так, например, здесь всегда будет указан номер рисунка "sample" не зависимо от того, какой он (1,2 или другой) - это рисунок \ref{pic:pic_name}). Не менее важно что весь документ оформлен в едином стиле, а исходные материалы подключаются к отчёту, а не хранятся в нём. Всё это позволяет легко получить качественный отчёт без дополнительных трат на его офрмление.
+\subsection{Интерполяционный полином Ньютона и Лагранжа}
+\begin{center}
+Формула интерполяционного полинома в форме Ньютона
+\[P_n(x)=f(x_0)+(x-x_0)f(x_0;x_1)+(x-x_0)(x-x_1)f(x_0;x_1;x_2)+\cdots+(x-x_{n-1})f(x_0;\cdots;x_n)\]
+Функция для вычисления интерполяционного полинома в форме Ньютона
+\lstinputlisting[language=Matlab]{newton/newton.m}
+Формула интерполяционного полинома в форме Лагранжа
+\[L_n(x)=\sum_{k=1}^{n+1} y_k \prod_{j=1,2,...n+1,j\not=k}\frac{x-x_j}{x_k-x_j}\]
+Функция для вычисления интерполяционного полинома в форме Лагранжа
+\lstinputlisting[language=Matlab]{lagrange/lagrange.m}
+Проверим работу функций, для чего создадим отдельный файл script.m
+\lstinputlisting[language=Matlab]{newton/script.m}
+\begin{figure}[H]
+\minipage{0.5\textwidth}
+    \includegraphics[width=\linewidth]{newton.png}
+    \caption*{График полинома в форме Ньютона}
+\endminipage\hfill
+\minipage{0.5\textwidth}
+    \includegraphics[width=\linewidth]{lagrange.png}
+    \caption*{График полинома в форме Лагранжа}
+\endminipage\hfill
+\end{figure}
+\end{center}
+\textbf{Вывод:} По полученным графикам можно подтвердить тот факт, что полином Лагранжа равен полиному Ньютона.
 
-Исключения, пожалуй, составляют таблицы, так как их значительно сложнее создавать кодом, нежели в графическом редакторе. Но здесь никто не запрещает использовать визуальные средства создания таблиц для \LaTeX\ .
+
+\subsection{Минимизация погрешности интерполяции по Чебышеву}
+При интерполировании функции полиномами Лагранжа или Ньютона возникает погрешность, которую можно минимизировать с помощью интерполяции по Чебышеву.
+
+Для натурального числа n узлы Чебышёва на отрезке [−1, 1] задаются формулой
+\[T_k=\cos{\frac{2k-1}{2n}\pi}\]
+Это корни многочлена Чебышёва первого рода степени n. Для получения узлов на произвольном отрезке [a, b] можно применить аффинное преобразование отрезков:
+\[x_k=\frac{a+b}{2}+\frac{b-a}{2}T_k\]
+\lstinputlisting[language=Matlab]{chebyshev.m}
+\begin{figure}[H]
+    \centering
+        \foreach \n in {1,...,10}{
+            \minipage{0.3\textwidth}
+                \includegraphics[width=\linewidth]{chebyshev/plot\n.png}
+                \caption*{Погрешность для точки №\n}
+            \endminipage\hfill
+        }
+        \minipage{0.3\textwidth}
+            \includegraphics*[width=\linewidth]{chebyshev/dp.png}
+            \caption*{Общая погрешность}
+        \endminipage\hfill
+\end{figure}
+\textbf{Вывод:} При анализе полученных графиков, можно заметить, что при интерполяции по Чебышеву погрешность действительно меньше.
+
+\subsection{Интерполяция сплайнами}
+\textbf{Сплайн} — функция в математике, область определения которой разбита на конечное число отрезков, на каждом из которых она совпадает с некоторым алгебраическим многочленом (полиномом).
+
+Другими словами сплайн — это кусочно заданная функция, то есть совокупность нескольких функций, каждая из которых задана на каком-то множестве значений аргумента, причём эти множества попарно непересекающиеся.
+
+\lstinputlisting[language=Matlab]{splines.m}
+На рисунке представлены погрешность интерполирования для полинома с \textcolor{blue}{равномерно расставленными узлами}, \textcolor{red}{узлами Чебышева} и \textcolor{green}{сплайнами}
+\begin{figure}[H]
+    \centering
+    \minipage{0.32\textwidth}
+        \includegraphics[width=\linewidth]{splines/spline_5_10.png}
+        \caption*{m = 5, n = 10}
+    \endminipage\hfill
+    \minipage{0.32\textwidth}
+        \includegraphics[width=\linewidth]{splines/spline_7_20.png}
+        \caption*{m = 7, n = 20}
+    \endminipage\hfill
+    \minipage{0.32\textwidth}
+        \includegraphics[width=\linewidth]{splines/spline_10_20.png}
+        \caption*{m = 10, n = 20}
+    \endminipage\hfill
+    \minipage{0.32\textwidth}
+        \includegraphics[width=\linewidth]{splines/spline_5_30.png}
+        \caption*{m = 5, n = 30}
+    \endminipage\hfill
+    \minipage{0.32\textwidth}
+        \includegraphics[width=\linewidth]{splines/spline_7_39.png}
+        \caption*{m = 7, n = 39}
+    \endminipage\hfill
+    \minipage{0.32\textwidth}
+        \includegraphics[width=\linewidth]{splines/spline_10_50.png}
+        \caption*{m = 10, n = 50}
+    \endminipage\hfill
+\end{figure}
+\textbf{Вывод:} При уменьшении количества узлов и увелечении количества отрезков сплайна, интерполирование сплайнами становится эффективнее.
 \end{document}
